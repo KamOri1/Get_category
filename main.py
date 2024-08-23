@@ -6,22 +6,20 @@ import URLSearchParams as ss
 import pandas as pd
 lista = [
          'garden-furniture/outdoor-furniture/lounge-sets/?Material=Fabric',
-         'garden-furniture/outdoor-furniture/lounge-sets/?Material=Metal',
-         'garden-furniture/outdoor-furniture/lounge-sets/?Material=Rattan',
-         'garden-furniture/outdoor-furniture/lounge-sets/?Material=Wood']
+         ]
 list_dict = {
-'1' : 'garden-furniture/outdoor-furniture/lounge-sets/?Material=Fabric',
+'1' : 'garden-furniture/outdoor-furniture/all+products/?Material=Rattan,Wood',
 # '2' : 'garden-furniture/outdoor-furniture/lounge-sets/?Material=Metal',
 # '3' : 'garden-furniture/outdoor-furniture/lounge-sets/?Material=Rattan',
 # '4' : 'garden-furniture/outdoor-furniture/lounge-sets/?Material=Wood',
 }
-countres = ['at', 'hu', 'pt', 'se', 'co.uk', 'dk']
+countres = ['at', 'co.uk']
 
 
 def het_category_filtr():
     options = Options()
     options.add_argument("--headless")
-    driver = webdriver.Chrome(options=options)
+    driver = webdriver.Chrome()
     cat1={}
     cat2={}
     cat3={}
@@ -58,67 +56,66 @@ def het_category_filtr():
                     'slug': countre,
                     sas.getAll()[0].split('=')[0] : src.getAll()[0].split('=')[0]
                 }
+            #
+            # if ',' in src.getAll()[0].split('=')[1]:
+            #     nowe = src.getAll()[0].split('=')[1].split(',')
+            #     for kazdy in nowe:
+            #         b = {
+            #                 'slug': countre,
+            #                  sas.getAll()[0].split('=')[1] : kazdy
+            #
+            #             }
+            #         if category == '1':
+            #
+            #             filter_values1.append(b)
+            #         elif category == '2':
+            #
+            #             filter_values2.append(b)
+            #         elif category == '3':
+            #
+            #             filter_values3.append(b)
+            #         elif category == '4':
+            #
+            #             filter_values4.append(b)
+            # else:
             b = {
-                    'slug': countre,
-                     sas.getAll()[0].split('=')[1] : src.getAll()[0].split('=')[1]
-                }
-            if a not in filter_names:
-                filter_names.append(a)
-            if b not in filter_names:
-                filter_values.append(b)
+                'slug': countre,
+                sas.getAll()[0].split('=')[1]: src.getAll()[1].split('=')[1]
+
+            }
+
+            # if a not in filter_names:
+            #     filter_names.append(a)
+            # if b not in filter_names:
+            #     filter_values.append(b)
             if category == '1':
                 cat1[countre] = current_url
+                # filter_values1.append(b)
             elif category == '2':
                 cat2[countre] = current_url
+                # filter_values2.append(b)
             elif category == '3':
                 cat3[countre] = current_url
+                # filter_values3.append(b)
             elif category == '4':
                 cat4[countre] = current_url
+                # filter_values4.append(b)
 
-            if category == '1':
-                filter_values1.append(b)
-            elif category == '2':
-                filter_values2.append(b)
-            elif category == '3':
-                filter_values3.append(b)
-            elif category == '4':
-                filter_values4.append(b)
-
-            #print(current_url)
+    print('==================================================')
     print(cat1)
     print(cat2)
     print(cat3)
     print(cat4)
-    # print(filter_names)
-    # print(filter_values)
-    print(filter_names)
-    print(filter_values1)
-    print(filter_values2)
-    print(filter_values3)
-    print(filter_values4)
     print('==================================================')
-    df = pd.DataFrame(filter_values1)
-
-    print(df.to_csv(index=False))
+    # print(filter_names)
+    # print(filter_values1)
+    # print(filter_values2)
+    # print(filter_values3)
+    # print(filter_values4)
+    # print('==================================================')
+    # df = pd.DataFrame(filter_values1)
+    #
+    # print(df.to_csv(index=False))
 het_category_filtr()
 
-# filter names
-# list = [
-#     {
-#         'slug':'countre',
-#         "Material":src.getAll()[0].split('=')[0]
-#     },
-#
-# ]
-#
-# filter values
-a = [
-    {'slug': 'at', 'Material': 'Stoff'},
-     {'slug': 'at', 'Material': 'Metall'},
-     {'slug': 'at', 'Material': 'Rattan'},
-     {'slug': 'at', 'Material': 'Massivholz'},
-     {'slug': 'hu', 'Material': 'Anyag'},
-     {'slug': 'hu', 'Material': 'Fem'},
-     {'slug': 'hu', 'Material': 'Rattan'},
-     {'slug': 'hu', 'Material': 'Kemenyfa'}
-]
+
